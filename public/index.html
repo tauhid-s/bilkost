@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Bilkost – Finn kostnadene for din neste bil</title>
-  <meta name="description" content="Bilkost beregner hva bil koster i Norge. Sammenlign priser på nye og brukte biler, og finn ut hva din økonomi tåler per måned." />
+  <meta name="description" content="Lim inn en finn.no-annonse eller søk etter bilmodell – Bilkost beregner priser og månedlige kostnader for deg." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -15,7 +15,7 @@
   <!-- ===== HEADER ===== -->
   <header class="header">
     <div class="container header__inner">
-      <a href="/" class="logo" aria-label="Bilkost – tilbake til forsiden">
+      <a href="/" class="logo" aria-label="Bilkost forsiden">
         <svg class="logo__icon" viewBox="0 0 32 20" fill="none" aria-hidden="true">
           <rect x="2" y="8" width="28" height="10" rx="3" fill="currentColor" opacity=".15"/>
           <path d="M4 13h24M6 13V9a1 1 0 011-1h4l3-4h4l3 4h4a1 1 0 011 1v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
@@ -40,49 +40,78 @@
           Hva koster din<br /><span class="hero__accent">drømmebil</span> egentlig?
         </h1>
         <p class="hero__subtitle">
-          Søk etter bilmodell, se priser på nye og brukte biler fra markedet,
-          og beregn din faktiske månedskostnad basert på din økonomi.
+          Lim inn en annonse fra finn.no eller søk etter bilmodell – Bilkost
+          beregner priser og din faktiske månedskostnad.
         </p>
 
-        <form id="search-form" class="search-form" autocomplete="off" novalidate>
-          <div class="search-form__wrapper">
-            <svg class="search-form__icon" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-              <circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" stroke-width="1.8"/>
-              <path d="M13 13l4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-            </svg>
-            <input
-              id="car-input"
-              type="text"
-              class="search-form__input"
-              placeholder="F.eks. Toyota Corolla, VW Golf, Tesla Model Y…"
-              aria-label="Søk etter bilmodell"
-              required
-              autocomplete="off"
-            />
-            <button type="submit" class="btn btn--primary search-form__btn">
-              Søk nå
-            </button>
-          </div>
-        </form>
+        <!-- Mode tabs -->
+        <div class="mode-tabs" role="tablist" aria-label="Søkemodus">
+          <button id="tab-url"   class="mode-tab mode-tab--active" role="tab" aria-selected="true"  aria-controls="panel-url"   data-mode="url">
+            <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M1 8h14M8 1v14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity=".5"/><path d="M6 4l-4 4 4 4M10 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Lim inn finn.no-lenke
+          </button>
+          <button id="tab-search" class="mode-tab" role="tab" aria-selected="false" aria-controls="panel-search" data-mode="search">
+            <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="6.5" cy="6.5" r="4" stroke="currentColor" stroke-width="1.5"/><path d="M10 10l3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            Søk etter modell
+          </button>
+        </div>
 
-        <div class="popular" aria-label="Populære søk">
-          <span class="popular__label">Populære:</span>
-          <button class="popular__tag" data-model="Toyota RAV4">Toyota RAV4</button>
-          <button class="popular__tag" data-model="Tesla Model Y">Tesla Model Y</button>
-          <button class="popular__tag" data-model="VW Golf">VW Golf</button>
-          <button class="popular__tag" data-model="Hyundai Ioniq 5">Ioniq 5</button>
-          <button class="popular__tag" data-model="BMW 3-serie">BMW 3-serie</button>
+        <!-- Panel: URL input -->
+        <div id="panel-url" class="search-panel" role="tabpanel" aria-labelledby="tab-url">
+          <form id="url-form" autocomplete="off" novalidate>
+            <div class="search-form__wrapper">
+              <svg class="search-form__icon" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M12.5 7.5l-5 5M7.5 7.5h5v5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><rect x="2" y="2" width="16" height="16" rx="4" stroke="currentColor" stroke-width="1.6"/></svg>
+              <input
+                id="url-input"
+                type="url"
+                class="search-form__input"
+                placeholder="https://www.finn.no/car/used/ad.html?finnkode=…"
+                aria-label="Finn.no annonselenke"
+                inputmode="url"
+              />
+              <button type="submit" class="btn btn--primary search-form__btn">Hent bil</button>
+            </div>
+          </form>
+          <p class="search-hint">
+            <svg viewBox="0 0 14 14" fill="none" aria-hidden="true"><circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1.3"/><path d="M7 6v4M7 4.5v.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+            Åpne en bilannonse på finn.no og kopier nettadressen fra nettleseren
+          </p>
+        </div>
+
+        <!-- Panel: Model search -->
+        <div id="panel-search" class="search-panel hidden" role="tabpanel" aria-labelledby="tab-search">
+          <form id="search-form" autocomplete="off" novalidate>
+            <div class="search-form__wrapper">
+              <svg class="search-form__icon" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" stroke-width="1.8"/><path d="M13 13l4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+              <input
+                id="car-input"
+                type="text"
+                class="search-form__input"
+                placeholder="F.eks. Toyota Corolla, VW Golf, Tesla Model Y…"
+                aria-label="Søk etter bilmodell"
+              />
+              <button type="submit" class="btn btn--primary search-form__btn">Søk nå</button>
+            </div>
+          </form>
+          <div class="popular" aria-label="Populære søk">
+            <span class="popular__label">Populære:</span>
+            <button class="popular__tag" data-model="Toyota RAV4">Toyota RAV4</button>
+            <button class="popular__tag" data-model="Tesla Model Y">Tesla Model Y</button>
+            <button class="popular__tag" data-model="VW Golf">VW Golf</button>
+            <button class="popular__tag" data-model="Hyundai Ioniq 5">Ioniq 5</button>
+            <button class="popular__tag" data-model="BMW 3-serie">BMW 3-serie</button>
+          </div>
         </div>
       </div>
 
       <div class="hero__stats" aria-hidden="true">
         <div class="stat-card">
-          <div class="stat-card__num">40+</div>
-          <div class="stat-card__label">Bilmodeller i databasen</div>
+          <div class="stat-card__num">finn.no</div>
+          <div class="stat-card__label">Direkte lenke støttet</div>
         </div>
         <div class="stat-card">
-          <div class="stat-card__num">finn.no</div>
-          <div class="stat-card__label">Prisdata fra markedet</div>
+          <div class="stat-card__num">40+</div>
+          <div class="stat-card__label">Bilmodeller i databasen</div>
         </div>
         <div class="stat-card">
           <div class="stat-card__num">100%</div>
@@ -93,9 +122,41 @@
   </section>
 
   <!-- ===== LOADING ===== -->
-  <div id="loading" class="loading hidden" aria-live="polite" aria-label="Laster prisdata">
+  <div id="loading" class="loading hidden" aria-live="polite">
     <div class="loading__spinner" aria-hidden="true"></div>
-    <p>Henter priser fra markedet…</p>
+    <p id="loading-msg">Henter data…</p>
+  </div>
+
+  <!-- ===== ERROR BANNER ===== -->
+  <div id="error-banner" class="error-banner hidden" role="alert" aria-live="assertive">
+    <div class="container">
+      <div class="error-banner__inner">
+        <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.6"/><path d="M10 6v4M10 13v.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <div>
+          <strong id="error-title">Feil</strong>
+          <p id="error-msg"></p>
+        </div>
+        <button id="error-close" class="error-banner__close" aria-label="Lukk feilmelding">
+          <svg viewBox="0 0 14 14" fill="none"><path d="M2 2l10 10M12 2L2 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+
+      <!-- Manual price fallback -->
+      <div id="manual-price-section" class="manual-price hidden">
+        <p class="manual-price__label">Skriv inn prisen fra annonsen manuelt:</p>
+        <div class="manual-price__form">
+          <div class="input-wrap">
+            <input type="number" id="manual-price-input" class="form-input" placeholder="f.eks. 320 000" min="0" inputmode="numeric" />
+            <span class="input-suffix">kr</span>
+          </div>
+          <div class="toggle-group" role="group" aria-label="Biltype">
+            <button type="button" class="toggle-btn toggle-btn--active" data-type="brukt" id="manual-btn-brukt">Brukt</button>
+            <button type="button" class="toggle-btn" data-type="ny" id="manual-btn-ny">Ny</button>
+          </div>
+          <button id="manual-price-btn" type="button" class="btn btn--primary">Bruk denne prisen</button>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- ===== RESULTS ===== -->
@@ -104,20 +165,39 @@
 
       <div class="results__header">
         <div>
-          <p class="results__eyebrow">Prisresultater</p>
-          <h2 class="results__title">
-            <span id="results-model-name"></span>
-          </h2>
+          <p class="results__eyebrow" id="results-eyebrow">Prisresultater</p>
+          <h2 class="results__title" id="results-model-name"></h2>
         </div>
-        <span id="data-source-badge" class="badge" aria-label="Datakilde"></span>
+        <span id="data-source-badge" class="badge"></span>
       </div>
 
-      <!-- Price cards -->
-      <div class="price-cards" role="list">
+      <!-- Finn.no listing card (shown when URL mode fetches a specific listing) -->
+      <div id="listing-card" class="listing-card hidden">
+        <div class="listing-card__body">
+          <div class="listing-card__info">
+            <div class="listing-card__meta" id="listing-meta"></div>
+            <h3 class="listing-card__title" id="listing-title"></h3>
+            <div class="listing-card__price" id="listing-price"></div>
+          </div>
+          <div class="listing-card__stats" id="listing-stats"></div>
+        </div>
+        <div class="listing-card__footer">
+          <a id="listing-finn-link" href="#" target="_blank" rel="noopener noreferrer" class="finn-link">
+            Se annonsen på finn.no
+            <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a id="listing-finance-link" href="https://www.finn.no/finans/bil/" target="_blank" rel="noopener noreferrer" class="finn-link finn-link--finance">
+            Finansiering via finn.no
+            <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
 
-        <article class="price-card price-card--new" role="listitem" aria-label="Ny bil pris">
+      <!-- Price range cards (shown for model search) -->
+      <div id="price-cards" class="price-cards hidden" role="list">
+        <article class="price-card price-card--new" role="listitem">
           <header class="price-card__header">
-            <span class="price-card__icon" aria-hidden="true">
+            <span class="price-card__icon">
               <svg viewBox="0 0 20 20" fill="none"><path d="M10 2l1.5 4h4.5l-3.5 2.5 1.5 4L10 10 6 12.5l1.5-4L4 6h4.5L10 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
             </span>
             <span>Ny bil</span>
@@ -131,10 +211,9 @@
             </a>
           </footer>
         </article>
-
-        <article class="price-card price-card--used" role="listitem" aria-label="Brukt bil pris">
+        <article class="price-card price-card--used" role="listitem">
           <header class="price-card__header">
-            <span class="price-card__icon" aria-hidden="true">
+            <span class="price-card__icon">
               <svg viewBox="0 0 20 20" fill="none"><path d="M3 14V9a1 1 0 011-1h3.5l2.5-4h2l2.5 4H17a1 1 0 011 1v5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6" cy="15" r="1.5" stroke="currentColor" stroke-width="1.5"/><circle cx="14" cy="15" r="1.5" stroke="currentColor" stroke-width="1.5"/></svg>
             </span>
             <span>Brukt bil</span>
@@ -148,7 +227,6 @@
             </a>
           </footer>
         </article>
-
       </div>
 
       <!-- ===== CALCULATOR ===== -->
@@ -190,8 +268,7 @@
             </div>
             <div class="form-group">
               <label class="form-label" for="interest-rate">
-                Rente
-                <span class="form-hint">Typisk: 7–10 %</span>
+                Rente <span class="form-hint">Typisk: 7–10 %</span>
               </label>
               <div class="input-wrap">
                 <input type="number" id="interest-rate" class="form-input" value="8.5" min="0" max="30" step="0.1" inputmode="decimal" />
@@ -200,7 +277,8 @@
             </div>
           </div>
 
-          <div class="form-row">
+          <!-- Car type toggle – only shown in search/model mode -->
+          <div id="car-type-row" class="form-row hidden">
             <div class="form-group form-group--full">
               <label class="form-label">Beregn for</label>
               <div class="toggle-group" role="group" aria-label="Velg biltype">
@@ -220,7 +298,6 @@
         <div id="calc-results" class="calc-results hidden" aria-live="polite">
           <div class="calc-divider"></div>
 
-          <!-- Down payment advice -->
           <div id="down-payment-card" class="advice-card">
             <div class="advice-card__header">
               <span id="advice-icon" class="advice-card__icon" aria-hidden="true">💡</span>
@@ -233,7 +310,7 @@
                 <dd class="advice-amount__value" id="your-down-payment">–</dd>
               </div>
               <div class="advice-amount">
-                <dt class="advice-amount__label">Anbefalt (20&nbsp;%)</dt>
+                <dt class="advice-amount__label">Anbefalt (20 %)</dt>
                 <dd class="advice-amount__value" id="recommended-dp">–</dd>
               </div>
               <div class="advice-amount">
@@ -243,7 +320,6 @@
             </dl>
           </div>
 
-          <!-- Monthly breakdown -->
           <div class="breakdown">
             <h4 class="breakdown__title">Månedlig kostnad</h4>
             <ul class="breakdown__list" role="list">
@@ -270,7 +346,6 @@
             </ul>
           </div>
 
-          <!-- Financial health -->
           <div class="health-card">
             <div class="health-card__header">
               <h4 class="health-card__title">Finansiell helse</h4>
@@ -282,7 +357,6 @@
             <p id="health-msg" class="health-card__msg"></p>
           </div>
 
-          <!-- Total cost summary -->
           <div class="totals">
             <div class="total-box">
               <div class="total-box__label">Total lånekostnad</div>
@@ -294,14 +368,17 @@
             </div>
           </div>
 
-          <aside class="finn-tip">
-            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 2a8 8 0 100 16A8 8 0 0010 2zm0 4v4m0 3v1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-            <p>
-              <strong>Tips:</strong> Sammenlign finansieringstilbud på
-              <a href="https://www.finn.no/finans/bil/" target="_blank" rel="noopener noreferrer">finn.no/finans/bil</a>
-              for å sikre deg den beste renten i markedet.
-            </p>
-          </aside>
+          <!-- Finn financing CTA -->
+          <div class="finance-cta" id="finance-cta">
+            <div class="finance-cta__text">
+              <strong>Sammenlign finansiering hos norske banker</strong>
+              <p>Finn.no tilbyr en gratis finansieringstjeneste for bruktbiler. Sammenlign renter fra flere banker og få det beste tilbudet.</p>
+            </div>
+            <a id="finance-cta-link" href="https://www.finn.no/finans/bil/" target="_blank" rel="noopener noreferrer" class="btn btn--finance">
+              Sjekk finansiering på finn.no
+              <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
         </div>
       </section>
 
@@ -315,10 +392,10 @@
       <div class="about-grid">
         <div class="about-card">
           <div class="about-card__icon" aria-hidden="true">
-            <svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="18" stroke="currentColor" stroke-width="1.5" opacity=".3"/><path d="M13 20h14M20 13v14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            <svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="18" stroke="currentColor" stroke-width="1.5" opacity=".3"/><path d="M12 20h4l2-6 4 12 2-6h4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </div>
-          <h3>Realistiske priser</h3>
-          <p>Bilkost henter prisdata fra finn.no og presenterer et realistisk bilde av hva bilen koster – ny eller brukt.</p>
+          <h3>Direkte fra finn.no</h3>
+          <p>Lim inn en annonselenke og Bilkost henter pris og bildetaljer direkte – ingen manuell inntasting.</p>
         </div>
         <div class="about-card">
           <div class="about-card__icon" aria-hidden="true">
@@ -332,7 +409,7 @@
             <svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="18" stroke="currentColor" stroke-width="1.5" opacity=".3"/><rect x="13" y="12" width="14" height="16" rx="2" stroke="currentColor" stroke-width="2"/><path d="M17 18h6M17 22h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
           </div>
           <h3>Norske finansvilkår</h3>
-          <p>Kalkulatoren bruker typiske norske renter og anbefaler egenandel basert på din faktiske økonomi.</p>
+          <p>Kalkulatoren bruker typiske norske renter og kobler deg til finn.no sitt finansieringsverktøy for bruktbiler.</p>
         </div>
       </div>
     </div>
@@ -342,7 +419,7 @@
   <footer class="footer">
     <div class="container">
       <div class="footer__top">
-        <a href="/" class="logo logo--footer" aria-label="Bilkost – tilbake til forsiden">
+        <a href="/" class="logo logo--footer" aria-label="Bilkost forsiden">
           <svg class="logo__icon" viewBox="0 0 32 20" fill="none" aria-hidden="true">
             <rect x="2" y="8" width="28" height="10" rx="3" fill="currentColor" opacity=".2"/>
             <path d="M4 13h24M6 13V9a1 1 0 011-1h4l3-4h4l3 4h4a1 1 0 011 1v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
@@ -352,12 +429,12 @@
           <span class="logo__text">Bilkost</span>
         </a>
         <p class="footer__desc">
-          Bilkost er et gratis og uavhengig verktøy som hjelper deg å forstå de reelle
-          kostnadene ved bilkjøp i Norge. Alle beregninger er veiledende.
+          Bilkost er et gratis og uavhengig verktøy som hjelper deg å forstå de reelle kostnadene
+          ved bilkjøp i Norge. Alle beregninger er veiledende.
         </p>
       </div>
       <div class="footer__bottom">
-        <p>&copy; 2025 Bilkost. Priser er estimater og kan avvike fra faktiske markedspriser.</p>
+        <p>&copy; 2025 Bilkost &nbsp;·&nbsp; Priser og beregninger er estimater og kan avvike fra faktiske markedspriser.</p>
       </div>
     </div>
   </footer>
