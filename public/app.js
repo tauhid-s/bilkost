@@ -92,7 +92,7 @@ function setCarData(price, model, type) {
   // Show financing CTA as soon as we have a car price
   const cta = $('finance-cta');
   if (price > 0) {
-    $('finance-cta-link').href = `https://www.finn.no/finans/bil/?amount=${Math.round(price)}`;
+    $('finance-cta-link').href = 'https://www.finn.no/okonomi';
     cta.classList.remove('hidden');
   } else {
     cta.classList.add('hidden');
@@ -202,7 +202,7 @@ function renderFinnListing(data) {
   const financeLink = $('listing-finance-link');
   financeLink.classList.toggle('hidden', data.type === 'ny');
   if (data.type === 'brukt') {
-    financeLink.href = `https://www.finn.no/finans/bil/?amount=${data.price}`;
+    financeLink.href = 'https://www.finn.no/okonomi';
   }
 
   $('results').classList.remove('hidden');
