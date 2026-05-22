@@ -89,6 +89,14 @@ function setCarData(price, model, type) {
   $('calc-results').classList.add('hidden');
   // Show/hide car type toggle
   $('car-type-row').classList.toggle('hidden', type !== null);
+  // Show financing CTA as soon as we have a car price
+  const cta = $('finance-cta');
+  if (price > 0) {
+    $('finance-cta-link').href = `https://www.finn.no/finans/bil/?amount=${Math.round(price)}`;
+    cta.classList.remove('hidden');
+  } else {
+    cta.classList.add('hidden');
+  }
 }
 
 /* ===== MODE TABS ===== */
@@ -189,7 +197,6 @@ function renderFinnListing(data) {
 
   // Links
   $('listing-finn-link').href = data.url;
-  $('finance-cta-link').href  = `https://www.finn.no/finans/bil/?amount=${data.price}`;
 
   // Finance link in card footer (only for used cars)
   const financeLink = $('listing-finance-link');
@@ -379,9 +386,6 @@ function calculate() {
   // Totals
   $('total-paid').textContent     = formatNOK(totalPaid + dp);
   $('total-interest').textContent = formatNOK(totalInterest);
-
-  // Update finance CTA link with current price
-  $('finance-cta-link').href = `https://www.finn.no/finans/bil/?amount=${carPrice}`;
 
   const cr = $('calc-results');
   cr.classList.remove('hidden');
